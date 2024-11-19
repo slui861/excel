@@ -38,11 +38,28 @@ int lettersToNumeric(String letters) {
 }
 
 Iterable<XmlElement> _findRows(XmlElement table) {
-  return table.findElements('row');
+  return table.findElements('row').sorted(
+      (a, b) {
+        int ai = int.tryParse(a.getAttribute('r')!)!, bi = int.tryParse(b.getAttribute('r')!)!;
+        if (ai == bi) {
+          return 0;
+        }
+        return ai > bi ? 1 : -1;
+      }
+  );
 }
 
 Iterable<XmlElement> _findCells(XmlElement row) {
-  return row.findElements('c');
+  return row.findElements('c').sorted(
+      (a, b) {
+        int? ai = _getCellNumber(a);
+        int? bi = _getCellNumber(b);
+        if (ai == bi) {
+          return 0;
+        }
+        return ai! > bi! ? 1 : -1;
+      }
+  );
 }
 
 int? _getCellNumber(XmlElement cell) {

@@ -1438,6 +1438,9 @@ class Sheet {
     return _sheet;
   }
 
+  Map<int, Map<int, Data>> sheetData() {
+    return _sheetData;
+  }
   ///returns row at index = `rowIndex`
   List<Data?> row(int rowIndex) {
     if (rowIndex < 0) {
